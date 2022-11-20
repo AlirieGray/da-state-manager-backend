@@ -1,11 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import mongoose from 'mongoose';
-import User from './model'
+import User from './user-model'
+import {omit} from 'lodash'
 
-const createUser = (req: Request, res: Response, next: NextFunction) => {
+async function createUser (req: Request, res: Response, next: NextFunction) {
     const { username, email, password } = req.body
-    console.log(username)
-    console.log(req.body)
     const user = new User({
         _id: new mongoose.Types.ObjectId(),
         username,
@@ -14,11 +13,11 @@ const createUser = (req: Request, res: Response, next: NextFunction) => {
     })
 
     return user.save()
-        .then(user => res.status(201).json({user}))
+        .then(user => res.status(201).json({user: omit(user.toJSON(), 'password')}))
         .catch(error => res.status(500).json(error))
 }
 
-const readUser = (req: Request, res: Response, next: NextFunction) => {
+async function readUser (req: Request, res: Response, next: NextFunction) {
     const userID = req.params.userID
 
     return User.findById(userID)
@@ -26,13 +25,13 @@ const readUser = (req: Request, res: Response, next: NextFunction) => {
         .catch(error => res.status(500).json({error}))
 }
 
-const readAll = (req: Request, res: Response, next: NextFunction) => {
+async function readAll (req: Request, res: Response, next: NextFunction) {
     return User.find()
         .then(users => res.status(200).json({users}))
         .catch(error => res.status(500).json({error}))
 }
 
-const updateUser = (req: Request, res: Response, next: NextFunction) => {
+async function  updateUser (req: Request, res: Response, next: NextFunction) {
     const userID = req.params.userID
 
     return User.findById(userID)
@@ -50,7 +49,7 @@ const updateUser = (req: Request, res: Response, next: NextFunction) => {
         .catch(error => res.status(500).json(error))
 }
 
-const deleteUser = (req: Request, res: Response, next: NextFunction) => {
+async function  deleteUser (req: Request, res: Response, next: NextFunction) {
     const userID = req.params.userID
 
     return User.findByIdAndDelete(userID)

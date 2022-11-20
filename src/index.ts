@@ -2,7 +2,9 @@ import express from 'express'
 import http from 'http'
 import mongoose from 'mongoose'
 import { config } from './config/config'
-import userRoutes from './api/resources/user/routes'
+import userRoutes from './api/resources/user/user-routes'
+import sessionRoutes from './api/session/session-routes'
+import deserializeUser from './middleware/deserialize-user'
 
 const router = express()
 
@@ -28,6 +30,7 @@ const StartServer = () => {
 
     router.use(express.urlencoded({extended: true}))
     router.use(express.json())
+    router.use(deserializeUser)
     router.use((req,res,next) => {
         res.header('Access-Control-Allow-Origin', "*")
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
@@ -42,6 +45,9 @@ const StartServer = () => {
 
     /** User Routes **/
     router.use('/users', userRoutes)
+
+    /** Session login route **/
+    router.use('/session', sessionRoutes)
 
     /** Health check **/
     router.get('/ping', (req, res, next) => res.status(200).json(200).json({message: 'pong'}))
