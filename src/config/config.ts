@@ -24,7 +24,7 @@ export const config = {
     jwt: {
         publicKey: PUBLIC_JWT_KEY,
         privateKey: PRIVATE_JWT_KEY,
-        accessTokenTtl: '15m',
+        accessTokenTtl: '1d',
         refreshTokenTtl: '1y'
     }
 }
