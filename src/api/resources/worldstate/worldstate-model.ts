@@ -3,8 +3,8 @@ import { UserDocument } from '../user/user-model'
 
 const Schema = mongoose.Schema
 
+/** TYPES **/
 export interface ProtagonistDocument extends mongoose.Document {
-    game: GameDocument['_id']
     name: String
     class: String
     origin: String
@@ -12,7 +12,6 @@ export interface ProtagonistDocument extends mongoose.Document {
     romances: [String]
     rivals: [String]
     summary: String
-    custom: Boolean
 }
 
 export interface DecisionDocument extends mongoose.Document {
@@ -27,6 +26,7 @@ export interface MainQuestDocument extends mongoose.Document {
 
 export interface GameDocument extends mongoose.Document {
     quest: [MainQuestDocument]
+    protagonist: ProtagonistDocument
 }
 
 export interface WorldstateDocument extends mongoose.Document {
@@ -34,25 +34,21 @@ export interface WorldstateDocument extends mongoose.Document {
     name: string
     summary: string
     wip: Boolean
-    protagonist: [ProtagonistDocument]
     games: [GameDocument]
     createdAt: Date
     updatedAt: Date
 }
 
+/** SCHEMAS **/
 const protagonistSchema = new Schema({
-    game: { type: mongoose.Schema.Types.ObjectId, ref: 'Game'},
     name: {
         type: String,
-        required: true
     },
     class: {
         type: String,
-        required: true
     },
     origin: {
         type: String,
-        required: true
     },
     companions: [String],
     romances: [String],
@@ -60,19 +56,6 @@ const protagonistSchema = new Schema({
     rivals: [String],
     summary: {
         type: String,
-        required: false
-    },
-    dao: {
-        type: Boolean,
-    },
-    da2: {
-        type: Boolean,
-    },
-    inquisition: {
-        type: Boolean,
-    },
-    custom: {
-        type: Boolean,
     }
 })
 
@@ -85,7 +68,7 @@ const decisionSchema = new Schema({
     }
 })
 
-const mainQuestScehma = new Schema({
+const mainQuestSchema = new Schema({
     name: {
         type: String
     },
@@ -96,7 +79,8 @@ const gameSchema = new Schema({
     name: {
         type: String
     },
-    quests: [mainQuestScehma]
+    quests: [mainQuestSchema],
+    protagonist: protagonistSchema
 })
 
 const WorldstateSchema = new Schema({
@@ -107,13 +91,10 @@ const WorldstateSchema = new Schema({
     },
     summary: {
         type: String,
-        required: false
     },
     wip: {
         type: Boolean,
-        required: false
     },
-    protagonists: [protagonistSchema],
     games: [gameSchema],
     fanWorks: [String]
 }, { timestamps: true})

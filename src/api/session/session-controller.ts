@@ -28,6 +28,25 @@ async function createUserSession(req: Request, res: Response) {
         { expiresIn: config.jwt.refreshTokenTtl }
     )
 
+    res.cookie('accessToken', accessToken, {
+        maxAge: 8.64e7, // one day
+        httpOnly: true,
+        domain: 'localhost', // todo: set in config for production
+        path: '/',
+        sameSite: 'strict',
+        secure: false, // todo: dev flag for true in production
+    })
+
+
+    res.cookie('refreshToken', refreshToken, {
+        maxAge: 3.154e10, // 1 year
+        httpOnly: true,
+        domain: 'localhost', // todo: set in config for production
+        path: '/',
+        sameSite: 'strict',
+        secure: false, // todo: dev flag for true in production
+    })
+
     // return access and refresh tokens
     return res.send({ accessToken, refreshToken })
 }

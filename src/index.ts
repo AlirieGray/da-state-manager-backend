@@ -3,6 +3,7 @@ import http from 'http'
 import mongoose from 'mongoose'
 import { config } from './config/config'
 import userRoutes from './api/resources/user/user-routes'
+import worldstateRoutes from './api/resources/worldstate/worldstate-routes'
 import sessionRoutes from './api/session/session-routes'
 import deserializeUser from './middleware/deserialize-user'
 
@@ -46,8 +47,11 @@ const StartServer = () => {
     /** User Routes **/
     router.use('/users', userRoutes)
 
-    /** Session login route **/
+    /** Session Routes **/
     router.use('/session', sessionRoutes)
+
+    /** World State Routes */
+    router.use('/worldstates', worldstateRoutes)
 
     /** Health check **/
     router.get('/ping', (req, res, next) => res.status(200).json(200).json({message: 'pong'}))

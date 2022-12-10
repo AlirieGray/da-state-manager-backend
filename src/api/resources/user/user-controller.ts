@@ -49,7 +49,7 @@ async function  updateUser (req: Request, res: Response, next: NextFunction) {
         .catch(error => res.status(500).json(error))
 }
 
-async function  deleteUser (req: Request, res: Response, next: NextFunction) {
+async function deleteUser (req: Request, res: Response, next: NextFunction) {
     const userID = req.params.userID
 
     return User.findByIdAndDelete(userID)
@@ -57,4 +57,8 @@ async function  deleteUser (req: Request, res: Response, next: NextFunction) {
         .catch(error => res.status(500).json({error}))
 }
 
-export default { createUser, readUser, readAll, updateUser, deleteUser}
+async function getCurrentUser (req: Request, res: Response) {
+    return res.send(res.locals.user)
+}
+
+export default { createUser, readUser, readAll, updateUser, deleteUser, getCurrentUser }
