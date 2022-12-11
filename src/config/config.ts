@@ -3,7 +3,7 @@ dotenv.config()
 
 const MONGO_URL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.w8ubkmf.mongodb.net/thedasDB`
 
-const SERVER_PORT = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 5555
+const SERVER_PORT = process.env.PORT ? Number(process.env.PORT) : 5555
 
 const PUBLIC_JWT_KEY = process.env.PUBLIC_KEY ? (process.env.PUBLIC_KEY as string) : ''
 
