@@ -64,7 +64,7 @@ async function deleteUserSession(req: Request, res: Response) {
 
     await updateSession({_id: sessionID}, {valid: false})
 
-    return res.send({
+    return res.status(200).send({
         accessToken: null,
         refreshToken: null
     })

@@ -4,8 +4,8 @@ import requireUser from '../../middleware/require-user'
 
 const router = express.Router()
 
-router.post('/login', controller.createUserSession)
-router.post('/logout', requireUser, controller.deleteUserSession)
+router.post('/new', controller.createUserSession)
+router.delete('/delete', requireUser, controller.deleteUserSession)
 router.get('/get', requireUser, controller.getUserSessions)
 
 export = router
