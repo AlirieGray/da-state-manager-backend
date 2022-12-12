@@ -33,6 +33,7 @@ export interface WorldstateDocument extends mongoose.Document {
     user: UserDocument['_id']
     name: string
     summary: string
+    imgLink: string
     wip: Boolean
     games: [GameDocument]
     createdAt: Date
@@ -88,6 +89,9 @@ const WorldstateSchema = new Schema({
     name: {
         type: String,
         required: true
+    },
+    imgLink: {
+        type: String,
     },
     summary: {
         type: String,
