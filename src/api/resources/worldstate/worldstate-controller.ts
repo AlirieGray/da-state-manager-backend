@@ -3,12 +3,13 @@ import mongoose from 'mongoose';
 import WorldState from './worldstate-model'
 
 async function createWorldState (req: Request, res: Response, next: NextFunction) {
-    const { name, summary, wip, games, fanWorks } = req.body 
+    const { name, summary, wip, games, fanWorks, imgLink } = req.body 
     const userID = res.locals.user._id
 
     const worldstate = new WorldState({
         _id: new mongoose.Types.ObjectId(),
         user: userID,
+        imgLink,
         name,
         summary,
         wip,
