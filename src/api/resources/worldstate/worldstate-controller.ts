@@ -57,7 +57,7 @@ async function deleteWorldState (req: Request, res: Response, next: NextFunction
     const worldID = req.params.worldID
 
     return WorldState.findByIdAndDelete(worldID)
-        .then(world => world ? res.status(201).json({'message': 'Worldstate deleted'}) : res.status(404).json({ message: 'World state not found'}))
+        .then(world => world ? res.status(200).json({'message': 'Worldstate deleted'}) : res.status(404).json({ message: 'World state not found'}))
         .catch(error => res.status(500).json({error}))
 }
 
