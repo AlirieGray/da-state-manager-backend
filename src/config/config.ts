@@ -11,6 +11,11 @@ const PRIVATE_JWT_KEY = process.env.PRIVATE_KEY ? (process.env.PRIVATE_KEY as st
 
 const SALT_WORK_FACTOR = Number(process.env.SALT_WORK_FACTOR || 10)
 
+const DOMAIN = process.env.DOMAIN ? (process.env.DOMAIN as string) : 'localhost'
+
+// DEV, STAGING, PROD
+const ENVIRONMENT = process.env.ENVIRONMENT ? (process.env.ENVIRONMENT as string) : 'DEV'
+
 export const config = {
     mongo: {
         url: MONGO_URL
@@ -26,5 +31,7 @@ export const config = {
         privateKey: PRIVATE_JWT_KEY,
         accessTokenTtl: '1d',
         refreshTokenTtl: '1y'
-    }
+    },
+    domain: DOMAIN,
+    environment: ENVIRONMENT,
 }

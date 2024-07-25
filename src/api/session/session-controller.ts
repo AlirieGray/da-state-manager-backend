@@ -31,20 +31,20 @@ async function createUserSession(req: Request, res: Response) {
     res.cookie('accessToken', accessToken, {
         maxAge: 8.64e7, // one day
         httpOnly: true,
-        domain: 'localhost', // todo: set in config for production
+        domain: config.domain, // todo: set in config for production
         path: '/',
         sameSite: 'strict',
-        secure: false, // todo: dev flag for true in production
+        secure: config.environment == 'DEV' ? false : true,
     })
 
 
     res.cookie('refreshToken', refreshToken, {
         maxAge: 3.154e10, // 1 year
         httpOnly: true,
-        domain: 'localhost', // todo: set in config for production
+        domain: config.domain, // todo: set in config for production
         path: '/',
         sameSite: 'strict',
-        secure: false, // todo: dev flag for true in production
+        secure: config.environment == 'DEV' ? true : true,
     })
 
     // return access and refresh tokens
