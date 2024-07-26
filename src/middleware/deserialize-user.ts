@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { get } from 'lodash'
 import { verifyJWT } from '../utils/jwt'
 import { reissueAccessToken } from '../api/session/session-service'
+import { config } from '../config/config'
 
 const deserializeUser = async (req: Request, res: Response, next: NextFunction) => {
     const accessToken = get(req, 'cookies.accessToken') || get(req, 'headers.authorization', '').replace(/^Bearer\s/, '')
@@ -28,10 +29,10 @@ const deserializeUser = async (req: Request, res: Response, next: NextFunction) 
             res.cookie('accessToken', accessToken, {
                 maxAge: 8.64e7, // one day
                 httpOnly: true,
-                domain: 'localhost', // todo: set in config for production
+                domain: config.domain, // todo: set in config for production
                 path: '/',
                 sameSite: 'strict',
-                secure: false, // todo: dev flag for true in production
+                secure: config.environment == 'DEV' ? false : true,
             })
         }
 

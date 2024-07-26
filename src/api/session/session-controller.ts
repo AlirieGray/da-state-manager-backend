@@ -31,7 +31,7 @@ async function createUserSession(req: Request, res: Response) {
     res.cookie('accessToken', accessToken, {
         maxAge: 8.64e7, // one day
         httpOnly: true,
-        domain: config.domain, // todo: set in config for production
+        domain: config.domain,
         path: '/',
         sameSite: 'strict',
         secure: config.environment == 'DEV' ? false : true,
@@ -41,10 +41,10 @@ async function createUserSession(req: Request, res: Response) {
     res.cookie('refreshToken', refreshToken, {
         maxAge: 3.154e10, // 1 year
         httpOnly: true,
-        domain: config.domain, // todo: set in config for production
+        domain: config.domain,
         path: '/',
         sameSite: 'strict',
-        secure: config.environment == 'DEV' ? true : true,
+        secure: config.environment == 'DEV' ? false : true,
     })
 
     // return access and refresh tokens
