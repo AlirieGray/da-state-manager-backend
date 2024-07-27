@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config()
 
-const MONGO_URL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.w8ubkmf.mongodb.net/thedasDB`
+const MONGO_URL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.w8ubkmf.mongodb.net/thedasDB&authSource=admin`
 
 const SERVER_PORT = process.env.PORT ? Number(process.env.PORT) : 5555
 
