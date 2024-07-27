@@ -35,7 +35,7 @@ const StartServer = () => {
     router.use((req,res,next) => {
         res.header('Access-Control-Allow-Origin', "https://da-state-manager.onrender.com")
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, x-refresh, Content-Type, Accept, Authorization, Access-Control-Request-Method,Access-Control-Request-Header')
-        res.header('Acccess-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,DELETE,OPTIONS,CONNECT,TRACE')
+        res.header('Acccess-Control-Allow-Methods', 'GET,HEAD,PUT,POST,PATCH,DELETE,OPTIONS,CONNECT,TRACE')
         res.setHeader("Access-Control-Max-Age", 7200);
         
         if (req.method == 'OPTIONS') {
